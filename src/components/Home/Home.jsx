@@ -7,7 +7,7 @@ const Home = () => {
     <header className="App-header">
       <img className="App-logo" alt="logo" src={pokebola} />
       <h1>Centro Pokemon de Ash</h1>
-      <Link to="/formularioIngreso" className="boton-ingreso">
+      <Link to="/formularioIngreso1" className="boton-ingreso">
         Ingresar pokemon
       </Link>
     </header>

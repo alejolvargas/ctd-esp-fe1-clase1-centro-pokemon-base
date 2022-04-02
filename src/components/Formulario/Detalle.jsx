@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ContextoFormulario } from "../../context/ContextoFormulario";
 
+/**
+ * Componente que muestra el detalle del formulario, con
+ * la informde cada uno de los campos que han sido completados.
+ *
+ * @returns {JSX.Element}
+ */
 const Detalle = () => {
-  // Aqui deberíamos obtener los datos del formulario para poder mostrarlo en
-  // la vista previa.
+  const { formulario } = useContext(ContextoFormulario);
+
+  const { nombre, apellido, email } = formulario?.entrenador;
+
+  const {
+    nombrePokemon,
+    tipoPokemon,
+    elementoPokemon,
+    alturaPokemon,
+    edadPokemon,
+  } = formulario?.pokemon;
 
   return (
     <div className="detalle-formulario">
@@ -12,15 +28,19 @@ const Detalle = () => {
       <section className="datos-cliente">
         <h4>Datos del Entrenador</h4>
         <div className="fila">
-          <p>Nombre:</p>
-          <p>Apellido:</p>
-          <p>Email:</p>
+          <p>Nombre: {nombre}</p>
+          <p>Apellido: {apellido}</p>
+          <p>Email: {email}</p>
         </div>
       </section>
       <section className="datos-cliente">
         <h4>Datos del Pokémon</h4>
         <div className="fila">
-          <p>Nombre:</p>
+          <p>Nombre: {nombrePokemon}</p>
+          <p>Tipo: {tipoPokemon}</p>
+          <p>Elemento: {elementoPokemon}</p>
+          <p>Altura: {alturaPokemon}</p>
+          <p>Edad: {edadPokemon}</p>
         </div>
       </section>
       <button
@@ -32,5 +52,6 @@ const Detalle = () => {
     </div>
   );
 };
+Detalle.propTypes = {};
 
 export default Detalle;
