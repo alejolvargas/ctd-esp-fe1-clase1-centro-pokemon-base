@@ -81,6 +81,7 @@ const ProviderFormulario = ({ children }) => {
    *    [string]: string,
    * }} valorInput
    */
+
   const handleInputBlur = (type, valorInput) => {
     const { campo, valor } = valorInput;
 
@@ -97,6 +98,7 @@ const ProviderFormulario = ({ children }) => {
       value={{
         formulario,
         handleInputBlur,
+        initialState,
       }}
     >
       {children}

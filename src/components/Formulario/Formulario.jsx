@@ -8,7 +8,7 @@ import Input from "../Input/Input";
 import Detalle from "./Detalle";
 import Footer from "../Footer/Footer";
 import { useQuery } from "react-query";
-import { obtenerTipoPokemon } from "../../servicio/TipoPokemon";
+import { obtenerTipoPokemon } from "../../servicio/ServiciosPokemon";
 
 import Select from "../Select/Select";
 
@@ -20,7 +20,7 @@ import Select from "../Select/Select";
 const Formulario = () => {
   const query = useQuery("obtenerTipoPokemon", obtenerTipoPokemon);
   const { status, isLoading, isSuccess, isError, data, error } = query;
-  console.log(data);
+
   return (
     <>
       <header className="form-header">
@@ -58,15 +58,11 @@ const Formulario = () => {
               </p>
 
               <Input name="nombrePokemon" label="Nombre" isPokemon={true} />
-              <label for="tipoPokemon">tipo</label>
-              <select name="tipoPokemon">
-                {data?.map((ele) => (
-                  <option key={ele.id} value={ele.name}>
-                    {ele.name}
-                  </option>
-                ))}
-              </select>
-              <Select />
+              <Select
+                name="tipoPokemon"
+                data={data}
+                disabled={isLoading || isError}
+              />
               <Input name="elementoPokemon" label="Elemento" isPokemon={true} />
               <Input name="alturaPokemon" label="Altura" isPokemon={true} />
               <Input name="edadPokemon" label="Edad" isPokemon={true} />

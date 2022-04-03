@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { useMutation } from "react-query";
 import { ContextoFormulario } from "../../context/ContextoFormulario";
-
+import { submitForm } from "../../servicio/ServiciosPokemon";
 /**
  * Componente que muestra el detalle del formulario, con
  * la informde cada uno de los campos que han sido completados.
@@ -8,7 +9,19 @@ import { ContextoFormulario } from "../../context/ContextoFormulario";
  * @returns {JSX.Element}
  */
 const Detalle = () => {
-  const { formulario } = useContext(ContextoFormulario);
+  const { data, isLoading, isError, mutate, isSuccess } =
+    useMutation(submitForm);
+
+  // Utilizamos un useEffect para que se ejecute una vez realiza la mutación y mostrar el mensaje de éxito o error.
+  useEffect(() => {
+    if (isSuccess) {
+      alert(`Formulario enviado correctamente, id ${data ? data?.id : ""}`);
+    } else if (isError) {
+      alert("Error al enviar el formulario. Por favor intente nuevamente");
+    }
+  }, [isSuccess, data, isError]);
+
+  const { formulario, initialState } = useContext(ContextoFormulario);
 
   const { nombre, apellido, email } = formulario?.entrenador;
 
@@ -43,11 +56,8 @@ const Detalle = () => {
           <p>Edad: {edadPokemon}</p>
         </div>
       </section>
-      <button
-        className="boton-enviar"
-        onClick={() => alert("Solicitud enviada :)")}
-      >
-        Enviar Solicitud
+      <button className="boton-enviar" onClick={() => mutate(formulario)}>
+        {isLoading ? "Enviando formulario..." : "Enviar la Solicitud"}
       </button>
     </div>
   );
